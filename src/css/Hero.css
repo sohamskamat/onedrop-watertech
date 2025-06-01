@@ -1,0 +1,119 @@
+/* Hero Section Styles */
+
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f0fdfa 100%);
+  padding-bottom: 5rem; /* Add space for the arrow */
+}
+.hero-bg-absolute {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(37,99,235,0.1) 0%, rgba(20,184,166,0.1) 100%);
+}
+.hero-content {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+.hero-bounce {
+  animation: bounce 2s infinite;
+  margin-bottom: 2rem;
+}
+.hero-logo {
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #3b82f6, #14b8a6);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 40px 0 rgba(37,99,235,0.15);
+}
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 4.5rem;
+  }
+}
+.hero-title-gradient {
+  background: linear-gradient(90deg, #2563eb, #14b8a6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #64748b;
+  margin-bottom: 2rem;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+.hero-btn-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+@media (min-width: 640px) {
+  .hero-btn-row {
+    flex-direction: row;
+  }
+}
+.hero-btn-primary {
+  background: linear-gradient(90deg, #2563eb, #14b8a6);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.hero-btn-primary:hover {
+  box-shadow: 0 10px 40px 0 rgba(37,99,235,0.15);
+  transform: scale(1.05);
+}
+.hero-btn-secondary {
+  border: 2px solid #cbd5e1;
+  color: #334155;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: none;
+  cursor: pointer;
+  transition: border 0.3s, color 0.3s;
+}
+.hero-btn-secondary:hover {
+  border-color: #14b8a6;
+  color: #14b8a6;
+}
+.hero-chevron {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+} 

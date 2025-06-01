@@ -1,0 +1,127 @@
+/* Navigation Styles */
+
+.navigation {
+  position: fixed;
+  width: 100%;
+  z-index: 50;
+  transition: all 0.3s;
+}
+.navigation.scrolled {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+.navigation.transparent {
+  background: transparent;
+}
+
+.nav-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-logo-circle {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, #3b82f6, #14b8a6);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.nav-subtitle {
+  font-size: 0.875rem;
+  color: #14b8a6;
+  font-weight: 500;
+}
+
+.nav-menu {
+  display: none;
+}
+@media (min-width: 768px) {
+  .nav-menu {
+    display: flex;
+    gap: 2rem;
+  }
+}
+
+.nav-menu-btn {
+  color: #334155;
+  background: none;
+  border: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+.nav-menu-btn:hover {
+  color: #14b8a6;
+}
+
+.nav-mobile-btn {
+  display: block;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: none;
+  border: none;
+  transition: background 0.2s;
+}
+.nav-mobile-btn:hover {
+  background: #f1f5f9;
+}
+@media (min-width: 768px) {
+  .nav-mobile-btn {
+    display: none;
+  }
+}
+
+.nav-mobile-menu {
+  display: block;
+  background: #fff;
+  border-top: 1px solid #e5e7eb;
+}
+@media (min-width: 768px) {
+  .nav-mobile-menu {
+    display: none;
+  }
+}
+
+.nav-mobile-menu-list {
+  padding: 0.5rem 0.5rem 0.75rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-mobile-menu-btn {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  color: #334155;
+  background: none;
+  border: none;
+  border-radius: 0.5rem;
+  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+.nav-mobile-menu-btn:hover {
+  color: #14b8a6;
+  background: #f8fafc;
+} 
