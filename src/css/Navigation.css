@@ -44,13 +44,23 @@
 .nav-title {
   font-size: 1.25rem;
   font-weight: bold;
+  color: #ffffff;
+  transition: color 0.3s;
+}
+
+.navigation.scrolled .nav-title {
   color: #1e293b;
 }
 
 .nav-subtitle {
   font-size: 0.875rem;
-  color: #14b8a6;
+  color: #e0f2fe;
   font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navigation.scrolled .nav-subtitle {
+  color: #14b8a6;
 }
 
 .nav-menu {
@@ -64,12 +74,15 @@
 }
 
 .nav-menu-btn {
-  color: #334155;
+  color: #e0f2fe;
   background: none;
   border: none;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: color 0.3s;
   cursor: pointer;
+}
+.navigation.scrolled .nav-menu-btn {
+  color: #334155;
 }
 .nav-menu-btn:hover {
   color: #14b8a6;
@@ -82,8 +95,15 @@
   background: none;
   border: none;
   transition: background 0.2s;
+  color: #e0f2fe;
+}
+.navigation.scrolled .nav-mobile-btn {
+  color: #334155;
 }
 .nav-mobile-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.navigation.scrolled .nav-mobile-btn:hover {
   background: #f1f5f9;
 }
 @media (min-width: 768px) {
@@ -94,6 +114,11 @@
 
 .nav-mobile-menu {
   display: block;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.navigation.scrolled .nav-mobile-menu {
   background: #fff;
   border-top: 1px solid #e5e7eb;
 }

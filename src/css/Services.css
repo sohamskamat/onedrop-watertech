@@ -30,18 +30,23 @@
 }
 .services-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(1, 1fr);
   gap: 2rem;
 }
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .services-grid {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 .services-card {
   background: #fff;
   border-radius: 1rem;
-  padding: 2rem;
+  overflow: hidden;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   transition: box-shadow 0.3s, transform 0.3s;
 }
@@ -49,26 +54,29 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   transform: translateY(-0.5rem);
 }
-.services-card-icon {
-  width: 4rem;
-  height: 4rem;
-  background: linear-gradient(90deg, #3b82f6, #14b8a6);
-  border-radius: 9999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  color: #fff;
+.services-card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.services-card:hover .product-image {
+  transform: scale(1.05);
 }
 .services-card-title {
   font-size: 1.5rem;
   font-weight: bold;
   color: #1e293b;
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 .services-card-desc {
   color: #64748b;
-  margin-bottom: 1.5rem;
+  margin: 0 1rem 1rem 1rem;
   line-height: 1.6;
 }
 .services-card-features {
