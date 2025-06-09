@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import './css/Navigation.css';
 import './css/Hero.css';
@@ -12,7 +12,19 @@ import { ChevronDown, Droplets, Shield, Zap, Users, CheckCircle, Mail, Phone, Ma
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import emailjs from '@emailjs/browser';
+
+const EMAIL = 'contact@onedropdummy.com';
+const PHONE = '+1 - 954478758754';
+const ADDRESS = '123 Innovation Drive, Tech City, TC 12345';
+
+const car_images = [
+  '/carousel_images/img1.jpg',
+  '/carousel_images/img2.jpg',
+  '/carousel_images/img3.jpg',
+  '/carousel_images/img4.jpg',
+  '/carousel_images/img5.jpg',
+  '/carousel_images/img6.jpg',
+];
 
 const OneDrop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,9 +36,12 @@ const OneDrop = () => {
     subject: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
-  const formRef = useRef();
+
+  const logoParts = [
+    { text: 'O', color: '#2170b8' },
+    { text: 'NE', color: '#19934c' },
+    { text: 'DROP', color: '#0a2e5d' }
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -49,22 +64,9 @@ const OneDrop = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Format the message for WhatsApp
     const whatsappMessage = `*New Contact Form Submission*%0A%0A*Name:* ${formData.firstName} ${formData.lastName}%0A*Email:* ${formData.email}%0A*Subject:* ${formData.subject}%0A*Message:* ${formData.message}`;
-    
-    // Get WhatsApp number from environment variable
-    const whatsappNumber = process.env.REACT_APP_PHONE;
-    
-    if (!whatsappNumber) {
-      console.error('WhatsApp number not configured');
-      return;
-    }
-    
-    // Open WhatsApp with the pre-filled message
+    const whatsappNumber = PHONE.replace(/[^\d]/g, '');
     window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
-    
-    // Reset form
     setFormData({
       firstName: '',
       lastName: '',
@@ -76,17 +78,20 @@ const OneDrop = () => {
 
   return (
     <div>
-      {/* Navigation */}
       <nav className={`navigation ${scrollY > 50 ? 'scrolled' : 'transparent'}`}>
         <div className="nav-container">
-          <div className="nav-logo">
-            <div className="nav-logo-circle">
-              <Droplets className="w-5 h-5" style={{ color: '#fff' }} />
-            </div>
-            <span className="nav-title">OneDrop</span>
-            <span className="nav-subtitle">WATERTECH</span>
+          <div className="nav-logo" style={{ display: 'flex', alignItems: 'center' }}>
+            <img src="/images/logo-short.png" alt="OneDrop Short Logo" className="nav-logo-short" style={{ width: '2rem', height: '2rem', borderRadius: '9999px', background: 'none', marginRight: '0.25rem' }} />
+            <span style={{ display: 'flex', alignItems: 'baseline', fontSize: '1.25rem', fontWeight: 'bold', textTransform: 'uppercase', color: '#0a2e5d', letterSpacing: 0 }}>
+              <span style={{ whiteSpace: 'nowrap', display: 'inline', fontWeight: 'bold' }}>
+                {logoParts.map((part, idx) => (
+                  <b key={idx} style={{ fontWeight: 'bold', color: part.color, fontSize: '1.25rem', display: 'inline', letterSpacing: 0 }}>{part.text}</b>
+                ))}
+              </span>
+              <span style={{ width: '0.5ch', display: 'inline-block' }}></span>
+              <span style={{ fontWeight: 'bold', color: '#0a2e5d', fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '0.02em', display: 'inline', verticalAlign: 'baseline' }}>WATERTECH</span>
+            </span>
           </div>
-          {/* Desktop Menu */}
           <div className="nav-menu">
             {['Home', 'About', 'Products', 'Technology', 'Testimonials', 'Contact'].map((item) => (
               <button
@@ -98,7 +103,6 @@ const OneDrop = () => {
               </button>
             ))}
           </div>
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="nav-mobile-btn"
@@ -106,7 +110,6 @@ const OneDrop = () => {
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="nav-mobile-menu">
             <div className="nav-mobile-menu-list">
@@ -124,7 +127,6 @@ const OneDrop = () => {
         )}
       </nav>
 
-      {/* Hero Section */}
       <section id="home" className="hero-section">
         <div className="hero-carousel">
           <Slider
@@ -135,45 +137,47 @@ const OneDrop = () => {
             slidesToScroll={1}
             autoplay={true}
             autoplaySpeed={5000}
+            arrows={false}
+            className="hero-slider"
           >
-            {[1, 2, 3, 4, 5, 6].map((num) => (
+            {car_images.map((src, num) => (
               <div key={num} className="hero-carousel-slide">
-                <img src={`/images/img${num}.jpg`} alt={`Slide ${num}`} className="hero-carousel-image" />
+                <img 
+                  src={src} 
+                  alt={`Slide ${num+1}`} 
+                  className="hero-carousel-image" 
+                />
               </div>
             ))}
           </Slider>
         </div>
         <div className="hero-main-content">
-          <div className="hero-left-content">
-            <div className="hero-bounce">
-              <div className="hero-logo">
-                <Droplets className="w-12 h-12" style={{ color: '#fff' }} />
+          <div className="hero-left-content" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+            <div className="hero-bounce" style={{ margin: 0 }}>
+              <div className="hero-logo" style={{
+                background: 'rgba(255,255,255,0.55)',
+                boxShadow: '0 8px 40px 0 rgba(37,99,235,0.10), 0 0 40px 10px rgba(255,255,255,0.25)',
+                width: 'min(80vw, 540px)',
+                height: 'min(60vh, 540px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0',
+                borderRadius: '2rem',
+                padding: '2.5rem',
+                transition: 'background 0.3s',
+              }}>
+                <img src="/images/logo-transparent.png" alt="OneDrop WaterTech Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '0', background: 'none', display: 'block' }} />
               </div>
             </div>
-            <h1 className="hero-title">
-              <span className="hero-title-gradient">OneDrop</span>
-              <br />
-              <span style={{ fontSize: '2rem', color: '#64748b' }}>WaterTech</span>
-            </h1>
-            <p className="hero-subtitle">
-              Revolutionizing water technology with innovative solutions for a sustainable future. Every drop matters, every solution counts.
-            </p>
-            <div className="hero-btn-row">
-              <button
-                onClick={() => scrollToSection('services')}
-                className="hero-btn-primary"
-              >
-                Explore Solutions
-              </button>
-            </div>
           </div>
-          <div className="hero-right-content">
-            <div className="contact-form-card">
+          <div className="hero-right-content desktop-contact-form">
+            <div className="contact-form-card" style={{ minHeight: 'auto', height: '490px', maxHeight: '510px', overflow: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '1rem' }}>
               <h3 className="contact-form-title">Send us a Message</h3>
               <form onSubmit={handleSubmit}>
                 <div className="contact-form-group">
                   <input
-                    type="text"
+                    type="text" 
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
@@ -389,6 +393,9 @@ const OneDrop = () => {
                 Advanced water technology solution designed for optimal performance and sustainability
               </p>
             </div>
+            
+
+            
           </div>
         </div>
       </section>
@@ -470,16 +477,16 @@ const OneDrop = () => {
             ].map((testimonial, index) => (
               <div key={index} className="testimonial-card">
                 <div className="testimonial-content">
-                  <div className="testimonial-quote">
+                  <div className="testimonial-author">
+                    <div className="testimonial-author-image">
+                      <img src={testimonial.image} alt={testimonial.author} />
+                    </div>
+                    <div className="testimonial-quote">
                     <svg className="testimonial-quote-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" fill="currentColor"/>
                     </svg>
                     <p>{testimonial.quote}</p>
                   </div>
-                  <div className="testimonial-author">
-                    <div className="testimonial-author-image">
-                      <img src={testimonial.image} alt={testimonial.author} />
-                    </div>
                     <div className="testimonial-author-info">
                       <h4>{testimonial.author}</h4>
                       <p>{testimonial.position}</p>
@@ -506,9 +513,9 @@ const OneDrop = () => {
           <div className="contact-info-section">
             <div className="contact-info-list">
               {[
-                { icon: <Mail className="w-6 h-6" />, label: "Email", value: "info@onedropwatertech.com" },
-                { icon: <Phone className="w-6 h-6" />, label: "Phone", value: "+1 (555) 123-4567" },
-                { icon: <MapPin className="w-6 h-6" />, label: "Address", value: "123 Innovation Drive, Tech City, TC 12345" }
+                { icon: <Mail className="w-6 h-6" />, label: "Email", value: <a href={`mailto:${EMAIL}`} style={{ color: '#2170b8', textDecoration: 'underline' }}>{EMAIL}</a> },
+                { icon: <Phone className="w-6 h-6" />, label: "Phone", value: PHONE },
+                { icon: <MapPin className="w-6 h-6" />, label: "Address", value: ADDRESS }
               ].map((item, index) => (
                 <div key={index} className="contact-info-item">
                   <div className="contact-info-icon">{item.icon}</div>
@@ -528,18 +535,23 @@ const OneDrop = () => {
         <div className="footer-container">
           <div className="footer-center">
             <div className="footer-logo-row">
-              <div className="footer-logo-circle">
-                <Droplets className="w-5 h-5" style={{ color: '#fff' }} />
-              </div>
-              <span className="footer-title">OneDrop</span>
-              <span className="footer-subtitle">WATERTECH</span>
+              <img src="/images/logo-short.png" alt="OneDrop Logo Icon" className="footer-logo-circle" style={{ width: '2rem', height: '2rem', borderRadius: '9999px', background: 'none', marginRight: '0.5rem' }} />
+              <span style={{ display: 'flex', alignItems: 'baseline', fontSize: '1.25rem', fontWeight: 'bold', textTransform: 'uppercase', color: '#0a2e5d', letterSpacing: 0 }}>
+                <span style={{ whiteSpace: 'nowrap', display: 'inline', fontWeight: 'bold' }}>
+                  {logoParts.map((part, idx) => (
+                    <b key={idx} style={{ fontWeight: 'bold', color: part.color, fontSize: '1.25rem', display: 'inline', letterSpacing: 0 }}>{part.text}</b>
+                  ))}
+                </span>
+                <span style={{ width: '0.5ch', display: 'inline-block' }}></span>
+                <span style={{ fontWeight: 'bold', color: '#0a2e5d', fontSize: '1.25rem', textTransform: 'uppercase', letterSpacing: '0.02em', display: 'inline', verticalAlign: 'baseline' }}>WATERTECH</span>
+              </span>
             </div>
             <p className="footer-desc">
               Making every drop count for a sustainable future
             </p>
             <div className="footer-divider">
               <p className="footer-copyright">
-                © 2025 OneDrop WaterTech. All rights reserved.
+                © 2025 <span style={{ color: '#2170b8', fontWeight: 'bold' }}>O</span><span style={{ color: '#19934c', fontWeight: 'bold' }}>NE</span><span style={{ color: '#0a2e5d', fontWeight: 'bold' }}>DROP</span> <span style={{ color: '#0a2e5d', fontWeight: 'bold', letterSpacing: '0.1em' }}>WATERTECH</span>. All rights reserved.
               </p>
             </div>
           </div>
